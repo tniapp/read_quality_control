@@ -1,0 +1,10 @@
+type: edu
+files:
+- name: tests.py
+  visible: false
+- name: n_nucleotides.py
+  visible: true
+- name: data/test1.fastq
+  visible: false
+- name: data/test2.fastq
+  visible: false

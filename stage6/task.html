@@ -1,0 +1,78 @@
+<h2>Description</h2>
+
+<p>Good job! It's time to complete the task.</p>
+
+<p>The HR dept. sent you three archives in the <em>.gz</em> format. These archives can be opened by the <code>gunzip</code> command. Another way is to get access to the FASTQ file without extraction is the <code>import gzip</code> Python command. Choose one of these options or use other tools as you see fit.</p>
+
+<h2>Objectives</h2>
+
+<ul>
+	<li>Take input paths to three data archives with FASTQ files;</li>
+	<li>Extract the archives. For each archive, calculate the total number of reads, read sequences with <code>N</code>s, average read sequence length, GC content, Ns% per read sequence, and the number of repeats;</li>
+	<li>Compare the quality of data archives and conclude which data is the best;</li>
+	<li>Print the data quality parameters for the selected best archive only.</li>
+</ul>
+
+<p>To test your code, you can use <a href="https://stepik.org/media/attachments/lesson/608059/data1.gz" rel="noopener noreferrer nofollow">data1.gz</a>, <a href="https://stepik.org/media/attachments/lesson/608059/data2.gz" rel="noopener noreferrer nofollow">data2.gz</a>, <a href="https://stepik.org/media/attachments/lesson/608059/data3.gz" rel="noopener noreferrer nofollow">data3.gz</a>. Use your knowledge to determine which archive is the best (for example, it should have a minimum of repeats and unknown nucleotides).</p>
+
+<h2>Example</h2>
+
+<p><strong>Example 1:</strong> <em>contents of data1.gz</em></p>
+
+<pre><code class="language-no-highlight">@HWI-ST745_0097:7:1101:1009:1000#0/1
+ATTCTGACTGCANNGGGCAATATGTCTTTGTGTGGATTAAAGAAAGAGTGTCTGATAGCAGCTTCTGAACTGGTTA
++HWI-ST745_0097:7:1101:1009:1000#0/1
+-8A-ACFCFGGC##@FCCED8CF@D7++++;CCCD7+@++@+B@++8,+8,C,C,&lt;,,:,,,9:,&lt;?C6C,CC,,6
+@HWI-ST745_0097:7:1101:1010:1000#0/1
+CTNTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATACCAGCTCGTGAAGTGGTTAC
++HWI-ST745_0097:7:1101:1010:1000#0/1
+--#A&lt;CCFGEC@77C9FFFGGG,,,CEEF9E,&lt;,C,,CDC,CCC,&lt;C,,;,,866+,,&lt;,&lt;,,,&lt;,,,,;,6&lt;C,&lt;
+@HWI-ST745_0097:7:1101:1011:1000#0/1
+TCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTGAACTGGTTACC
++HWI-ST745_0097:7:1101:1011:1000#0/1
+--BCCCFDFGGGGGGFGGFGGC@8BFA9F9,C,F7++@&lt;99EF7CFF8EFE9,C,,:,:C,+8B@+CF,,,&lt;CCE,</code></pre>
+
+<p><em>Contents of data2.gz</em></p>
+
+<pre><code class="language-no-highlight">@HWI-ST745_0097:7:1101:1016:1000#0/1
+CTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGGTTCTGAACTGGTTACCTGCCG
++HWI-ST745_0097:7:1101:1016:1000#0/1
+BBBCCCGGGFE9FAF9DFEGFFG7+CFC@FECFF9F7C@ECE+C,,,CF,@CF,+++6+8,:9,+8@+&lt;,&lt;C,,,,
+@HWI-ST745_0097:7:1101:1017:1000#0/1
+TTCAACGGGCAATATGTCTCTGTGTGGATTAGAAAAAGAGTGTCTGATAGCAGCCTCTGAACTGGTTACCTGCCGT
++HWI-ST745_0097:7:1101:1017:1000#0/1
+--@ACCFGFFFCEF7FE7@C7F7CFFG?ECF,+@::FF8EF9CF,,,B+,;C:+,:+,7++8+8CB,,,:,,,9:4
+@HWI-ST745_0097:7:1101:1018:1000#0/1
+GCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCTGCTTCTGAACTGGTTACCCGCCGTG
++HWI-ST745_0097:7:1101:1018:1000#0/1
+--6A&lt;CGEGGCDFGGGC87,@&lt;;888EFFGAEF,CF8FF8CC+CF+++++,;,,,:C,8CCCF,69C@E,,,:CC,</code></pre>
+
+<p><em>Contents of data3.gz</em></p>
+
+<pre><code class="language-no-highlight">@HWI-ST745_0097:7:1101:1025:1000#0/1
+GCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTGAACTGGTTACCTGCCGTGAGTAAAT
++HWI-ST745_0097:7:1101:1025:1000#0/1
+AABB@CGGGGGGGGGGF9,CFGEFFDFDF99,&lt;EDFCF@8E9C,EF9CEF++@+@,,,,;,,,;,C,CE,,,:CCE
+@HWI-ST745_0097:7:1101:1026:1000#0/1
+CAANNNGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGAAAGCAGCTTCTGAACTGGTTACCTGCCGTGAGTAAATT
++HWI-ST745_0097:7:1101:1026:1000#0/1
+-AC###GCGGGGGGGGGFGGGCFFGG7BEFFG?88FF@7F7@7F777EE,C,@7++8@EFEFEE+,6&gt;88,:,,&lt;,
+@HWI-ST745_0097:7:1101:1027:1000#0/1
+AATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCNTCAGAACTGGTTACCTGCCGTGAGTAAATTA
++HWI-ST745_0097:7:1101:1027:1000#0/1
+BBBBCCGGGGGGFDF9FFGFCFFE?FDC7F8,C7FC;@CFFG9C#+@+++@@@FFECF,CCC,EE8?C,BCEE,,8</code></pre>
+
+<p><em>Program output</em></p>
+
+<pre><code class="language-no-highlight">&gt; data1.gz
+&gt; data2.gz
+&gt; data3.gz
+
+Reads in the file = 3
+Reads sequence average length = 76
+
+Repeats = 0
+Reads with Ns = 0
+
+GC content average = 46.49%
+Ns% per read sequence = 0%</code></pre>

@@ -1,0 +1,97 @@
+<h2>Description</h2>
+
+<p>The sequencer has imperfections. Sometimes, it can sequence the same part twice or even more. As a result, a FASTQ file may contain several reads with the same nucleotide order. Of course, it makes it harder to assemble a puzzle when you have identical details. In this light, it is necessary to catch the repeated reads to clear the data for further processing.</p>
+
+<p>Repeated reads can appear as a result of the bacterial natural repeat sequencing, but for the sake of simplicity, we do not take this feature into account.</p>
+
+<p>Finding repeats is an easy task, so we decided to give you an archive with the real data. The archive contains two FASTQ files as a result of paired-end sequencing (forward reads and reverse reads). The peculiarity is the archive format — <em>.sra</em>. To extract a FASTQ file from an <em>.sra</em> archive, install the SRA toolkit (you can do it with <a href="https://docs.conda.io/en/latest/miniconda.html" rel="noopener noreferrer nofollow" style="font-size: inherit; font-weight: inherit;">Conda</a>). The <code>fastq dump</code> command can help you to extract a FASTQ file. Like any other tool, the <code>fastq dump</code> has <a href="https://edwards.flinders.edu.au/fastq-dump/" rel="noopener noreferrer nofollow" style="font-size: inherit; font-weight: inherit;">documentation</a> with a list of all the options you may need. Always read it before doing something :)</p>
+
+<p>These are just our recommendations; feel free to experiment and find your way to extract the file.</p>
+
+<h2>Objectives</h2>
+
+<ul>
+	<li>Get the <em>.sra</em> archive from the <a href="https://sra-download.ncbi.nlm.nih.gov/traces/sra59/SRR/016119/SRR16506265" rel="noopener noreferrer nofollow">link</a> and place it in the <code>data/</code> folder;</li>
+	<li>Extract the FASTQ files. Use only the FASTQ file with the <code>_1.fastq</code> postfix;</li>
+	<li>Find all repeated reads and print their total number. Repeats are the extra reads. For example, if the sequence of the same read occurs three times in the file, then the number of repeats is two.</li>
+</ul>
+
+<p>[ALERT-warning]Your final program should input the path to the<em></em>FASTQ<em> </em>file with data and print the information about it (see the Examples section).[/ALERT]</p>
+
+<h2>Examples</h2>
+
+<p>The greater-than symbol followed by a space (<code>&gt;</code>) represents the user input. Note that it's not part of the input.</p>
+
+<p><strong>Example 1:</strong> <em>contents of test_1.fastq</em></p>
+
+<pre><code class="language-no-highlight">@SRR12345678.1
+GAGCCATATGACCACGCCGGAGAATCTCGCCAAGCAGGCAAAGCTGATGGAAGGCTACGGTGCGCCCTGTTTTTAT
++SRR12345678.1
+-@CCCGGGGFFGGCFGGGEEDFDFFGDFCEE,:@FDC8FE8,@FC8&lt;F&lt;,&lt;,8,CC8C,,C,:++8@C,:,6:C,9
+@SRR12345678.2
+GTCGATGGCCTGAACTACTCACGCTTCGAGAAGCAGATGCCTGCGCTGGCAGGTTTTGCTGAGCAAAATATTTCGT
++SRR12345678.2
+-ACCCGFFGGGFCFGGGGGGCGCFGEGD8C878EAFGGCEFFEF7CFC7@,@+CEFD,CF,,,:,,,,:,&lt;CCE,:
+@SRR12345678.3
+CGTCTGCGTCGAATCGACGCTACGCGACGGCTTTTTTCTGGAGTATTTCGGCGTGGTGCTTGAAGACGCAACTCT
++SRR12345678.3
+@ACCCFFFFGGGFFGF?E@@FEGEGDCFC7CCEGGCGEFE,,,C,CE@E,+@+@++:,6CE,,,,,:,4++899,
+@SRR12345678.4
+CGCAGAACCTGCACAGGAAAGCGACGAGCTGATCGTTAAAGATGCTAACGGCAATCTGCTGGCTGACGGCGACAG
++SRR12345678.4
+@@CCCGGGGGGGGGGGDF@CGGCEGDD&gt;FFC,EFDFGE@FA,C9CE99F@7B7+CCE,CF,,6C,,C,+8++8++
+@SRR12345678.5
+CTTTATGCCCCCACAGTGCGATCAGGAAGTACATCGGCACCAGCATCATTTCCCAGAAGAAGAAGAACATGAACAT
++SRR12345678.5
+CCCCCGFGGGGGDGDCFCFEDFEEDC?CDE9FAFGECF&gt;FF8,C,FE8CEEFFF,,,,,,,,,,,,,C,,,,,:,:
+@SRR12345678.6
+GTCGATGGCCTGAACTACTCACGCTTCGAGAAGCAGATGCCTGCGCTGGCAGGTTTTGCTGAGCAAAATATTTCGT
++SRR12345678.6
+-ACCCGFFGGGFCFGGGGGGGGCFGEGD8C878FAFGGCEFFEF7CFC7@,A+CEFD,CF,,,:,,,,:,&lt;CCD,:</code></pre>
+
+<p><em>Program output</em></p>
+
+<pre><code class="language-no-highlight">&gt; data/test_1.fastq
+Reads in the file = 6
+Reads sequence average length = 76
+
+Repeats = 1
+
+GC content average = 52.65%</code></pre>
+
+<p><strong>Example 2:</strong> <em>contents of test_2.fastq</em></p>
+
+<pre><code class="language-no-highlight">@SRR12345678.11 11 length=74
+TTACATCATCATCGGTCACTCTGAACGTCGTACTTACCACAAAGAATCTGACGACCTGATCGCGAAACAATTCG
++SRR12345678.11 11 length=74
+-8ACCGGGGGGGGGDFGGGGGGFFFGFGFDF?EGGGGCFGC,&lt;,&lt;,CCF,,C,,+8@,,;C,8+++++,,:CC,
+@SRR12345678.12 12 length=76
+CCCATCGGCACGCTTTCTGGTGGCAATCAGCAAAAAGTGGTGATCGGTCGTTGGGTCTATGCTGCCAGCCAGTTTT
++SRR12345678.12 12 length=76
+B@CCCGGGGGGGGGGGFFFFGFGGGGGFFFGG@8,FEFAFGC,EFGDGCC@C&lt;@+C@F,E&lt;@F9E&lt;,,66,,,&lt;C@
+@SRR12345678.13 13 length=74
+TCTGGAACAACTCGGCTTTACGCTGGCGAAGTTACCCGCAGGGTTAAATTCCAGCCCCCGTCCGTCTCCACTCC
++SRR12345678.13 13 length=74
+-AC9C9EFGGGFGC7ECCFFF7FE&gt;@F@++6CF&lt;CAEEE@+++;@&lt;9,&lt;,CC,,:C,,++88++,,:,,,:,6:
+@SRR12345678.14 14 length=74
+TTACATCATCATCGGTCACTCTGAACGTCGTACTTACCACAAAGAATCTGACGACCTGATCGCGAAACAATTCG
++SRR16506265.14 14 length=74
+-8ACCGGGGGGGGGDFGGGGGGFFFGFGFDF?EGGGGCFGC,&lt;,&lt;,CCF,,C,,+8@,,;C,8+++++,,:CC,
+@SRR12345678.15 15 length=76
+CGACAGGACCGGACGTGTACTGCTTAATCAGTTTGTTTCTGCCGCTGTTTCCGCGATGACTACCAATGTGGCACGT
++SRR12345678.15 15 length=76
+@CCCCGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGFFECGGGGGGGEG7+8,,:E,CE,,C,C,,:,C,:
+@SRR12345678.16 16 length=74
+TTACATCATCATCGGTCACTCTGAACGTCGTACTTACCACAAAGAATCTGACGACCTGATCGCGAAACAATTCG
++SRR12345678.16 16 length=74
+-8ACCGGGGGGGGGDFGGGGGGFFFGFGFDF?EGGGGCFGC,&lt;,&lt;,CCF,,C,,+8@,,;C,8+++++,,:CC,</code></pre>
+
+<p><em>Program output</em></p>
+
+<pre><code class="language-no-highlight">&gt; data/test_2.fastq
+Reads in the file = 6
+Reads sequence average length = 75
+
+Repeats = 2
+
+GC content average = 49.75%</code></pre>

@@ -1,0 +1,6 @@
+type: edu
+files:
+- name: tests.py
+  visible: false
+- name: read_extractor.py
+  visible: true

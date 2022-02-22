@@ -1,0 +1,8 @@
+type: edu
+files:
+- name: tests.py
+  visible: false
+- name: repeats.py
+  visible: true
+- name: data/SRR16506265_1.fastq
+  visible: false

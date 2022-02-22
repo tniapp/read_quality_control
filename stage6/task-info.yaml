@@ -1,0 +1,12 @@
+type: edu
+files:
+- name: data/data1.gz
+  visible: true
+- name: data/data3.gz
+  visible: true
+- name: data/data2.gz
+  visible: true
+- name: tests.py
+  visible: false
+- name: quality_metrics.py
+  visible: true
