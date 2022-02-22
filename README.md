@@ -1,5 +1,4 @@
 # Read Quality Control
-_________________________________
 Read Quality Control is an educational project published on the Hyperskill platform (JetBrains) 
 https://hyperskill.org
 
